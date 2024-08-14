@@ -5,6 +5,7 @@ use App\Http\Controllers\Cargo\CargoController;
 use App\Http\Controllers\Empresa\EmpresaController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\TipoEquipamento\TipoEquipamentoController;
+use App\Http\Controllers\TipoServico\TipoServicoController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,5 +61,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix' => 'cargo'], function () {
         Route::get('/listar', [CargoController::class, 'list']);
+    });
+
+    Route::group(['prefix' => 'tipo-servico'], function () {
+        Route::get('/listar', [TipoServicoController::class, 'list']);
+        Route::post('/cadastro', [TipoServicoController::class, 'create']);
+        Route::put('/excluir', [TipoServicoController::class, 'delete']);
     });
 });
