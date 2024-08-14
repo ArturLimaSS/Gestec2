@@ -48,4 +48,16 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function list(Request $request)
+    {
+        try {
+            $users = User::whereHas('empresa', function ($query) use ($request) {
+                $query->where('tb_empresa.empresa_id', $request->empresa_id);
+            })->get();
+            return response()->json(['users' => $users], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

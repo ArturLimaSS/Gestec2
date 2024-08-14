@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Cargo\CargoController;
 use App\Http\Controllers\Empresa\EmpresaController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\TipoEquipamento\TipoEquipamentoController;
@@ -43,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('/cadastro', [UserController::class, 'create']);
         Route::put('/atualizar', [UserController::class, 'update']);
+        Route::get('/listar', [UserController::class, 'list']);
     });
 
     Route::group(['prefix' => 'site'], function () {
@@ -54,5 +56,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/cadastro', [TipoEquipamentoController::class, 'create']);
         Route::get('/listar', [TipoEquipamentoController::class, 'list']);
         Route::delete('/excluir', [TipoEquipamentoController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'cargo'], function () {
+        Route::get('/listar', [CargoController::class, 'list']);
     });
 });
