@@ -68,4 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/cadastro', [TipoServicoController::class, 'create']);
         Route::put('/excluir', [TipoServicoController::class, 'delete']);
     });
+
+    Route::group(['prefix' => 'questionario'], function () {
+        
+    });
 });
