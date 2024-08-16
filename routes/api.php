@@ -2,24 +2,17 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cargo\CargoController;
+use App\Http\Controllers\CheckList\CheckListController;
 use App\Http\Controllers\Empresa\EmpresaController;
+use App\Http\Controllers\Perguntas\PerguntasController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Tarefas\TarefasController;
 use App\Http\Controllers\TipoEquipamento\TipoEquipamentoController;
 use App\Http\Controllers\TipoServico\TipoServicoController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -30,6 +23,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [AuthController::class, 'createUser']);
     Route::post('/login', [AuthController::class, 'login']);
 });
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -70,6 +64,24 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::group(['prefix' => 'questionario'], function () {
-        
+        Route::group(['prefix' => 'cadastro'], function () {
+            Route::post('', [CheckListController::class, 'create']);
+            Route::get('', [CheckListController::class, 'getCheckList']);
+            Route::put('', [CheckListController::class, 'update']);
+        });
+
+        Route::group(['prefix'  => 'tarefas'], function () {
+            Route::get('listar',  [TarefasController::class, 'list']);
+            Route::post('adicionar', [TarefasController::class, 'create']);
+            Route::put('atualizar',  [TarefasController::class, 'update']);
+            Route::delete('excluir',  [TarefasController::class, 'delete']);
+        });
+
+        Route::group(['prefix' => 'perguntas'], function () {
+            Route::post('adicionar', [PerguntasController::class, 'create']);
+            Route::get('listar', [PerguntasController::class, 'list']);
+            Route::put('atualizar', [PerguntasController::class, 'update']);
+            Route::delete('excluir', [PerguntasController::class, 'delete']);
+        });
     });
 });
