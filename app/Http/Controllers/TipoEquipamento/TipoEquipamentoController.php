@@ -21,7 +21,7 @@ class TipoEquipamentoController extends Controller
     public function list(Request $request)
     {
         try {
-            $tipos_equipamentos = TipoEquipamentoModel::where('ativo', '1')->where('empresa_id', $request->empresa_id)->get();
+            $tipos_equipamentos = TipoEquipamentoModel::where('ativo', '1')->where('empresa_id', $this->user->empresa[0]->empresa_id)->get();
             return response()->json(['tipos_equipamentos' => $tipos_equipamentos], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Ocorreu um erro ao listar os tipos de equipamento: ' . $e->getMessage()], 500);

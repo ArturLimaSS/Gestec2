@@ -21,7 +21,7 @@ class PerguntasController extends Controller
     public function list(Request $request)
     {
         try {
-            $perguntas = PerguntasModel::where('checklist_id',  $request->checklist_id)->get();
+            $perguntas = PerguntasModel::where('questionario_id',  $request->questionario_id)->get();
             return response()->json(['perguntas' => $perguntas], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

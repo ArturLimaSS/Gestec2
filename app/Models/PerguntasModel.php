@@ -17,7 +17,7 @@ class PerguntasModel extends Model
         'empresa_id',
         'pergunta',
         'tipo_resposta',
-        'checklist_id',
+        'questionario_id',
         'opcoes',
         'status',
         'created_at',

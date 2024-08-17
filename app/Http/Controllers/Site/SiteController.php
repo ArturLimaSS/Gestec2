@@ -44,7 +44,7 @@ class SiteController extends Controller
   public function list(Request $request)
   {
     try {
-      $sites = SitesModel::where('ativo', '1')->where('empresa_id', $request->empresa_id)->get();
+      $sites = SitesModel::where('ativo', '1')->where('empresa_id', $this->user->empresa[0]->empresa_id)->get();
       return  response()->json(['sites' => $sites], 200);
     } catch (\Exception $e) {
       return response()->json(['error' => 'Ocorreu um erro ao listar os sites: ' . $e->getMessage()], 500);

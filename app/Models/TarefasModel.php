@@ -11,7 +11,7 @@ class TarefasModel extends Model
     protected $table = 'tb_tarefas';
     protected $primaryKey = 'tarefa_id';
     protected $fillable = [
-        'checklist_id',
+        'questionario_id',
         'nome_tarefa',
         'descricao_tarefa'
     ];

@@ -49,11 +49,14 @@ class UserController extends Controller
         }
     }
 
-    public function list(Request $request)
+    public function list(Request  $request)
     {
         try {
             $users = User::whereHas('empresa', function ($query) use ($request) {
-                $query->where('tb_empresa.empresa_id', $request->empresa_id);
+                $query->where('tb_empresa.empresa_id', $this->user->empresa[0]->empresa_id);
+                if ($request->cargo_id != null) {
+                    $query->where('tb_empresa_user.cargo_id', $request->cargo_id);
+                }
             })->get();
             return response()->json(['users' => $users], 200);
         } catch (\Exception $e) {

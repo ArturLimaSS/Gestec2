@@ -11,7 +11,7 @@ class TarefasController extends Controller
     public function  list(Request $request)
     {
         try {
-            $tarefas = TarefasModel::where('checklist_id',  $request->checklist_id)->get();
+            $tarefas = TarefasModel::where('questionario_id',  $request->questionario_id)->get();
             return response()->json(['tarefas' => $tarefas], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

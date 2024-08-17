@@ -11,7 +11,7 @@ class EmpresaController extends Controller
     public function update(Request $request)
     {
         try {
-            $empresa = EmpresaModel::find($request->empresa_id);
+            $empresa = EmpresaModel::find($this->user->empresa[0]->empresa_id);
             if ($empresa) {
                 $empresa->update($request->all());
                 return response()->json(['message' => 'Empresa atualizada com sucesso!', 'empresa' => $empresa], 200);

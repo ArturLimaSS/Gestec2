@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Atividade\AtividadeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cargo\CargoController;
-use App\Http\Controllers\CheckList\CheckListController;
+use App\Http\Controllers\Questionario\QuestionarioController;
 use App\Http\Controllers\Empresa\EmpresaController;
 use App\Http\Controllers\Perguntas\PerguntasController;
+use App\Http\Controllers\Resposta\RespostaController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Tarefas\TarefasController;
 use App\Http\Controllers\TipoEquipamento\TipoEquipamentoController;
@@ -64,12 +66,22 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::group(['prefix' => 'questionario'], function () {
+        /* Busca questionário */
+        Route::get('/buscar', [QuestionarioController::class, 'getQUestionario']);
+
+        /* Lista questionário */
+        Route::get('/listar', [QuestionarioController::class, 'list']);
+        Route::get('/listar-por-tipo-servico', [QuestionarioController::class, 'getQuestionariosPorTipoServico']);
+        /* Cadastro de questionário */
         Route::group(['prefix' => 'cadastro'], function () {
-            Route::post('', [CheckListController::class, 'create']);
-            Route::get('', [CheckListController::class, 'getCheckList']);
-            Route::put('', [CheckListController::class, 'update']);
+            Route::post('', [QuestionarioController::class, 'create']);
+            Route::get('', [QuestionarioController::class, 'getQuestionarioEmCadastro']);
+            Route::put('', [QuestionarioController::class, 'update']);
+            Route::put('/finalizar', [QuestionarioController::class, 'complete']);
+            Route::delete('', [QuestionarioController::class, 'delete']);
         });
 
+        /* Tarefas */
         Route::group(['prefix'  => 'tarefas'], function () {
             Route::get('listar',  [TarefasController::class, 'list']);
             Route::post('adicionar', [TarefasController::class, 'create']);
@@ -77,11 +89,23 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('excluir',  [TarefasController::class, 'delete']);
         });
 
+        /* Perguntas - Perguntas não estão agrupadas em tarefas pois a busca é por questionario_id */
         Route::group(['prefix' => 'perguntas'], function () {
             Route::post('adicionar', [PerguntasController::class, 'create']);
             Route::get('listar', [PerguntasController::class, 'list']);
             Route::put('atualizar', [PerguntasController::class, 'update']);
             Route::delete('excluir', [PerguntasController::class, 'delete']);
         });
+    });
+
+    Route::group(['prefix' => 'atividade'], function () {
+        Route::post('/cadastro', [AtividadeController::class, 'create']);
+        Route::get('/listar', [AtividadeController::class, 'list']);
+        Route::get('/detalhes', [AtividadeController::class, 'atividadeDetail']);
+    });
+
+    Route::group(['prefix' => 'respostas'], function () {
+        Route::get('/listar', [RespostaController::class, 'list']);
+        Route::put('/atualizar', [RespostaController::class, 'update']);
     });
 });

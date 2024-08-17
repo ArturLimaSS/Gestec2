@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CheckListModel extends Model
+class QuestionarioModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_checklists';
-    protected $primaryKey = 'checklist_id';
+    protected $table = 'tb_questionario';
+    protected $primaryKey = 'questionario_id';
     protected $fillable = [
         "nome",
         "descricao",
-        "tipo_serviço_id",
+        "tipo_servico_id",
         "empresa_id",
         "status"
     ];

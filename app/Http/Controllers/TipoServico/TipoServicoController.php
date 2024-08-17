@@ -11,7 +11,7 @@ class TipoServicoController extends Controller
     public function list(Request  $request)
     {
         $lista  = TipoServicoModel::where('status', 'ativo')
-            ->where('empresa_id', $request->empresa_id)
+            ->where('empresa_id', $this->user->empresa[0]->empresa_id)
             ->get();
         return response()->json(['tipos_servicos' => $lista], 200);
     }
@@ -20,7 +20,7 @@ class TipoServicoController extends Controller
     {
         try {
             $dados = $request->all();
-            $dados['empresa_id'] = $request->empresa_id;
+            $dados['empresa_id'] = $this->user->empresa[0]->empresa_id;
             TipoServicoModel::create($dados);
             return response()->json(['message' => 'Tipo de Serviço cadastrado com sucesso!'], 201);
         } catch (\Exception $e) {
