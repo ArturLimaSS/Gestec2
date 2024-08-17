@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resposta;
 use App\Http\Controllers\Controller;
 use App\Models\RespostaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RespostaController extends Controller
 {
@@ -20,11 +21,25 @@ class RespostaController extends Controller
 
     public function update(Request $request)
     {
+        DB::beginTransaction();
         try {
-            $resposta = RespostaModel::find($request->resposta_id);
-            $resposta->update($request->all());
-            return response()->json(['resposta' => $resposta], 200);
+            $respostas = $request->respostas;
+            $successCount = 0;
+            foreach ($respostas as $resposta) {
+                $respostaDb =  RespostaModel::find($resposta['resposta_id']);
+                $respostaDb->resposta = $resposta['resposta'];
+                $respostaDb->save();
+                $successCount++;
+            }
+            if ($successCount  == count($respostas)) {
+                DB::commit();
+                return response()->json(['message' => 'Respostas salvas com sucesso!'], 200);
+            } else {
+                DB::rollBack();
+                return response()->json(['error' => 'Ocorreu um eror ao salvar respostas'], 500);
+            }
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

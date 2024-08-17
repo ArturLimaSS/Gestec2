@@ -15,6 +15,13 @@ class Controller extends BaseController
 
     public function  __construct()
     {
-        $this->user  = User::with(['empresa', 'empresaUser'])->find(auth()->user()->id);
+        $this->user = auth()->check() ? User::with(['empresa', 'empresaUser'])->find(auth()->user()->id) : null;
+    }
+
+    public function setUser($user)
+    {
+        if ($this->user == null) {
+            $this->user = User::with(['empresa', 'empresaUser'])->find($user->id);http://localhost:5173/atividades/detalhes/8
+        }
     }
 }

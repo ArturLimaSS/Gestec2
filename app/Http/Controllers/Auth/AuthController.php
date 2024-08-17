@@ -59,6 +59,8 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('authToken')->plainTextToken;
+
+        $this->setUser($user);
         return response()->json([
             'user' => $user,
             'token' => $token
@@ -71,7 +73,7 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
+        $this->setUser($user);
         $userData = User::with('empresa')->find($user->id);
         return response()->json(['user' => $userData]);
     }
