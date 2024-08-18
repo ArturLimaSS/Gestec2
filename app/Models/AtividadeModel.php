@@ -16,9 +16,13 @@ class AtividadeModel extends Model
         'questionario_id',
         'atividade_nome',
         'atividade_descricao',
+        'atividade_endereco',
+        'atividade_conclusao',
+        'atividade_tipo',
         'tipo_atividade',
         'empresa_id',
         'responsavel_id',
+        'finalizado_em',
         'etapa_id',
         'status',
     ];

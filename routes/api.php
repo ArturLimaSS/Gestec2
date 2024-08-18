@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix' => 'empresa'], function () {
         Route::put('/cadastro', [EmpresaController::class, 'update']);
+        Route::post("/logo", [EmpresaController::class,  'logo']);
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -110,6 +111,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/listar', [AtividadesAnexo::class,  'list']);
             Route::put('/atualizar', [AtividadesAnexo::class, 'update']);
             Route::put('/excluir', [AtividadesAnexo::class, 'delete']);
+            Route::get('/relatorio',  [AtividadesAnexo::class, 'relatorio']);
         });
     });
 

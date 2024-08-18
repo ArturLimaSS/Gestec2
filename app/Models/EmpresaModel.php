@@ -15,6 +15,7 @@ class EmpresaModel extends Model
         'responsavel_id',
         "razao_social",
         "nome_fantasia",
+        "logomarcar",
         "cnpj",
         "logradouro",
         "numero",

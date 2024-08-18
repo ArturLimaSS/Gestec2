@@ -54,6 +54,9 @@ class AtividadeController extends Controller
                     "tb_atividade.atividade_descricao",
                     "tb_atividade.responsavel_id",
                     "tb_atividade.etapa_id",
+                    "tb_atividade.finalizado_em",
+                    "tb_atividade.atividade_conclusao",
+                    "tb_atividade.atividade_tipo",
                     "tb_sites.site_id",
                     "tb_sites.nome_site",
                     "tb_sites.endereco_cep",
@@ -105,6 +108,10 @@ class AtividadeController extends Controller
                 "tb_atividade.responsavel_id",
                 "tb_atividade.etapa_id",
                 "tb_atividade.questionario_id",
+                "tb_atividade.finalizado_em",
+                "tb_atividade.atividade_conclusao",
+                "tb_atividade.atividade_endereco",
+                "tb_atividade.atividade_tipo",
                 "tb_sites.site_id",
                 "tb_sites.nome_site",
                 "tb_sites.endereco_cep",
@@ -154,6 +161,8 @@ class AtividadeController extends Controller
 
             $atividade = AtividadeModel::find($request->atividade_id);
             $atividade->etapa_id = '3';
+            $atividade->finalizado_em = date('Y-m-d H:i:s');
+            $atividade->atividade_conclusao = $request->atividade_conclusao;
             $atividade->save();
             return response()->json(['message' => 'Atividade Concluída com sucesso!'], 200);
         } catch (\Exception $e) {
