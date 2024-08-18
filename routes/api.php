@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Atividade\AtividadeController;
+use App\Http\Controllers\Atividades\AtividadesAnexo;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cargo\CargoController;
 use App\Http\Controllers\Questionario\QuestionarioController;
@@ -103,6 +104,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/listar', [AtividadeController::class, 'list']);
         Route::get('/detalhes', [AtividadeController::class, 'atividadeDetail']);
         Route::put('/concluir', [AtividadeController::class, 'complete']);
+
+        Route::group(['prefix' => 'anexos'], function () {
+            Route::post('/upload', [AtividadesAnexo::class, 'upload']);
+        });
     });
 
     Route::group(['prefix' => 'respostas'], function () {
