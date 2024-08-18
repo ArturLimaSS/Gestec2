@@ -105,8 +105,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/detalhes', [AtividadeController::class, 'atividadeDetail']);
         Route::put('/concluir', [AtividadeController::class, 'complete']);
 
-        Route::group(['prefix' => 'anexos'], function () {
+        Route::group(['prefix' => 'anexo'], function () {
             Route::post('/upload', [AtividadesAnexo::class, 'upload']);
+            Route::get('/listar', [AtividadesAnexo::class,  'list']);
+            Route::put('/atualizar', [AtividadesAnexo::class, 'update']);
+            Route::put('/excluir', [AtividadesAnexo::class, 'delete']);
         });
     });
 

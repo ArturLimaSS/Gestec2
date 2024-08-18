@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tb_atividade_anexo', function (Blueprint $table) {
             $table->id('anexo_id');
-            $table->field("atividade_id")->nullable();
-            $table->field("user_id")->nullable();
-            $table->field("file_name")->nullable();
-            $table->field("file_path")->nullable();
-            $table->field("file_description")->nullable();
-            $table->field("status")->nullable();
+            $table->integer("atividade_id")->nullable();
+            $table->integer("user_id")->nullable();
+            $table->string("nome_arquivo")->nullable();
+            $table->string("caminho_arquivo")->nullable();
+            $table->string("descricao")->nullable();
+            $table->enum("status", ['0',  '1'])->nullable();
             $table->timestamps();
         });
     }
