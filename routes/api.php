@@ -102,6 +102,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/cadastro', [AtividadeController::class, 'create']);
         Route::get('/listar', [AtividadeController::class, 'list']);
         Route::get('/detalhes', [AtividadeController::class, 'atividadeDetail']);
+        Route::put('/concluir', [AtividadeController::class, 'complete']);
     });
 
     Route::group(['prefix' => 'respostas'], function () {

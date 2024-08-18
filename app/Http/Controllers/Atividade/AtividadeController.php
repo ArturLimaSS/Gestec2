@@ -9,6 +9,7 @@ use App\Models\RespostaModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AtividadeController extends Controller
 {
@@ -82,6 +83,7 @@ class AtividadeController extends Controller
 
             if ($this->user->empresaUser[0]->cargo_id  == 2) {
                 $query->where('tb_atividade.responsavel_id', $this->user->id);
+                // $query->where('tb_atividade.etapa_id', '2');
             }
             $atividades  = $query->get();
 
@@ -137,6 +139,23 @@ class AtividadeController extends Controller
             } else {
                 return response()->json(['error' => 'Atividade não encontrada'], 404);
             }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function complete(Request $request)
+    {
+        try {
+            $user = User::find($this->user->id);
+            if (!Hash::check($request->password, $user->password)) {
+                return response()->json(['error' => 'Usuário não autorizado'], 401);
+            }
+
+            $atividade = AtividadeModel::find($request->atividade_id);
+            $atividade->etapa_id = '3';
+            $atividade->save();
+            return response()->json(['message' => 'Atividade Concluída com sucesso!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
