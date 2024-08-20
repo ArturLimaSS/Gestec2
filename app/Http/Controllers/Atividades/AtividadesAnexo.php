@@ -159,18 +159,15 @@ class AtividadesAnexo extends Controller
 
             $anexos = AtividadeAnexoModel::where("atividade_id", $request->atividade_id)->get();
 
-
-
-
-
             // Dados agrupados
             $data = [
                 "atividade" => $atividade,
+                "empresa" =>  $this->user->empresa[0],
                 "endereco" => $atividade->endereco_cep . " " . $atividade->endereco_cidade . " " . $atividade->endereco_estado . " " . $atividade->endereco_numero . " " . $atividade->endereco_rua,
                 "anexos" => $anexos,
-                "empresa" =>  $this->user->empresa[0],
                 "responsavel" => $atividade->responsavel_nome,
             ];
+
 
             if ($atividade->atividade_tipo == "ordem_servico") {
                 // Dados  de  Questionário

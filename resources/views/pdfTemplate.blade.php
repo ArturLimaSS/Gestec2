@@ -171,7 +171,7 @@
       </tr>
       <tr style="margin-bottom: 10px">
         <td class="border_univ" style="border: 1px solid #ddd; text-align:center; width:30%">
-          <img src="{{ $empresa->locomarcar }}" alt="Logo" style="height: 70px; vertical-align: middle;">
+          <img src={{"https://apigestec2.qtsys.com.br/" . $empresa['logomarcar']}} alt="Logo" style="height: 70px; vertical-align: middle;">
         </td>
         <td class="border_univ" style="border: 1px solid #ddd; font-size:18px; text-align:center; width:40%">
           Atividade Técnica
