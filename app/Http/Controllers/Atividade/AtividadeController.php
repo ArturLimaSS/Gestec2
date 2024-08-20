@@ -84,7 +84,7 @@ class AtividadeController extends Controller
                 ->leftJoin('tb_tipo_servico', 'tb_atividade.tipo_servico_id', '=', 'tb_tipo_servico.tipo_servico_id')
                 ->where('tb_atividade.empresa_id', $this->user->empresa[0]->empresa_id);
 
-            if ($this->user->empresaUser[0]->cargo_id  == 2) {
+            if ($this->user->empresaUser[0]->cargo_id  == 4) {
                 $query->where('tb_atividade.responsavel_id', $this->user->id);
                 // $query->where('tb_atividade.etapa_id', '2');
             }

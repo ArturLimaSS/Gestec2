@@ -242,7 +242,7 @@
             @foreach($perguntas_respostas as $pergunta_resposta)
             @if($pergunta_resposta->tarefa_id == $tarefa->tarefa_id)
             <tr>
-              <td>{{$pergunta_resposta->pergunta}}</td>
+              <td style="width: 50%">{{$pergunta_resposta->pergunta}}</td>
               <td>{{ $pergunta_resposta->resposta }}</td>
             </tr>
             @endif
