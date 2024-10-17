@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class QuestionarioController extends Controller
 {
-    public function list()
+    public  function listar()
     {
         try {
             $questionarios = QuestionarioModel::where('empresa_id', $this->user->empresa[0]->empresa_id)->where("status", "ativo")->get();
@@ -17,7 +17,7 @@ class QuestionarioController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         try {
             $questionario = QuestionarioModel::create($request->all());
@@ -27,7 +27,7 @@ class QuestionarioController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         try {
             $questionario = QuestionarioModel::find($request->questionario_id);

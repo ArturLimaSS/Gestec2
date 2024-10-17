@@ -18,7 +18,7 @@ class AtividadesAnexo extends Controller
 {
 
 
-    public function list(Request $request)
+    public  function listar(Request $request)
     {
         $anexos = AtividadeAnexoModel::where("atividade_id", $request->atividade_id)
             ->where("status", "1")
@@ -98,7 +98,7 @@ class AtividadesAnexo extends Controller
         }
     }
 
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         try {
             $arquivo = AtividadeAnexoModel::find($request->anexo_id);

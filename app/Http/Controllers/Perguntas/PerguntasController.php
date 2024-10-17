@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class PerguntasController extends Controller
 {
-    public  function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         try {
             $pergunta = PerguntasModel::create($request->all());
@@ -18,7 +18,7 @@ class PerguntasController extends Controller
         }
     }
 
-    public function list(Request $request)
+    public  function listar(Request $request)
     {
         try {
             $perguntas = PerguntasModel::where('questionario_id',  $request->questionario_id)->get();
@@ -28,7 +28,7 @@ class PerguntasController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         try {
             $pergunta = PerguntasModel::find($request->pergunta_id);

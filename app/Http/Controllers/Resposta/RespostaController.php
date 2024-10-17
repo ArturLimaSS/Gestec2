@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class RespostaController extends Controller
 {
-    public function list(Request $request)
+    public  function listar(Request $request)
     {
         try {
             $respostas = RespostaModel::where('atividade_id', $request->atividade_id)->get();
@@ -19,7 +19,7 @@ class RespostaController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         DB::beginTransaction();
         try {

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CargoController extends Controller
 {
-    public function list()
+    public  function listar()
     {
         try {
             $cargos = CargoModel::all();

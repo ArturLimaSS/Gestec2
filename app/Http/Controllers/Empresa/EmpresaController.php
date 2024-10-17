@@ -11,7 +11,7 @@ use Intervention\Image\Facades\Image;
 
 class EmpresaController extends Controller
 {
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         try {
             $empresa = EmpresaModel::find($this->user->empresa[0]->empresa_id);

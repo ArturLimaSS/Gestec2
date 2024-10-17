@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-  public function create(Request $request)
+  public  function cadastrar(Request $request)
   {
     try {
       $site = SitesModel::create($request->all());
@@ -18,7 +18,7 @@ class SiteController extends Controller
     }
   }
 
-  public function update(Request $request)
+  public  function editar(Request $request)
   {
     try {
       $site = SitesModel::find($request->id);
@@ -41,10 +41,12 @@ class SiteController extends Controller
     }
   }
 
-  public function list(Request $request)
+  public  function listar(Request $request)
   {
     try {
-      $sites = SitesModel::where('ativo', '1')->where('empresa_id', $this->user->empresa[0]->empresa_id)->get();
+      $sites = SitesModel::where('ativo', '1')
+        ->where('empresa_id', $this->empresa->empresa_id)
+        ->get();
       return  response()->json(['sites' => $sites], 200);
     } catch (\Exception $e) {
       return response()->json(['error' => 'Ocorreu um erro ao listar os sites: ' . $e->getMessage()], 500);

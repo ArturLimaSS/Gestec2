@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TipoServicoController extends Controller
 {
-    public function list(Request  $request)
+    public  function listar(Request  $request)
     {
         $lista  = TipoServicoModel::where('status', 'ativo')
             ->where('empresa_id', $this->user->empresa[0]->empresa_id)
@@ -16,7 +16,7 @@ class TipoServicoController extends Controller
         return response()->json(['tipos_servicos' => $lista], 200);
     }
 
-    public function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         try {
             $dados = $request->all();

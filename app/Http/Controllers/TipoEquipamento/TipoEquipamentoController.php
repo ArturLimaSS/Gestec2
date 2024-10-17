@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TipoEquipamentoController extends Controller
 {
-    public  function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         try {
             $tipoEquipamento = TipoEquipamentoModel::create($request->all());
@@ -18,7 +18,7 @@ class TipoEquipamentoController extends Controller
         }
     }
 
-    public function list(Request $request)
+    public  function listar(Request $request)
     {
         try {
             $tipos_equipamentos = TipoEquipamentoModel::where('ativo', '1')->where('empresa_id', $this->user->empresa[0]->empresa_id)->get();

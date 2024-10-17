@@ -18,7 +18,7 @@ class TarefasController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         try {
             $tarefa = TarefasModel::create($request->all());

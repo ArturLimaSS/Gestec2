@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -34,7 +34,7 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public  function editar(Request $request)
     {
         try {
             $user = User::find($request->id);
@@ -49,7 +49,7 @@ class UserController extends Controller
         }
     }
 
-    public function list(Request  $request)
+    public  function listar(Request  $request)
     {
         try {
             $users = User::whereHas('empresa', function ($query) use ($request) {

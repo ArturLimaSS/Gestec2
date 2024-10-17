@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Hash;
 class AtividadeController extends Controller
 {
 
-    public function create(Request $request)
+    public  function cadastrar(Request $request)
     {
         DB::beginTransaction();
         try {
-
             $data = $request->all();
             $data['empresa_id'] =  $this->user->empresa[0]->empresa_id;
 
@@ -42,7 +41,7 @@ class AtividadeController extends Controller
         }
     }
 
-    public function list(Request $request)
+    public  function listar(Request $request)
     {
         try {
 
@@ -100,38 +99,39 @@ class AtividadeController extends Controller
     public function atividadeDetail(Request $request)
     {
         try {
-            $atividade = DB::table("tb_atividade")->select(
-                "tb_atividade.atividade_id",
-                "tb_atividade.atividade_nome",
-                "tb_atividade.created_at AS atividade_created_at",
-                "tb_atividade.atividade_descricao",
-                "tb_atividade.responsavel_id",
-                "tb_atividade.etapa_id",
-                "tb_atividade.questionario_id",
-                "tb_atividade.finalizado_em",
-                "tb_atividade.atividade_conclusao",
-                "tb_atividade.atividade_endereco",
-                "tb_atividade.atividade_tipo",
-                "tb_sites.site_id",
-                "tb_sites.nome_site",
-                "tb_sites.endereco_cep",
-                "tb_sites.endereco_cidade",
-                "tb_sites.endereco_estado",
-                "tb_sites.endereco_numero",
-                "tb_sites.endereco_rua",
-                "tb_sites.nivel_prioridade",
-                "tb_sites.tipo_acesso",
-                "tb_sites.tipo_chave",
-                "tb_sites.tipo_equipamento",
-                "tb_tipo_equipamento.nome_tipo_equipamento",
-                "tb_etapa.etapa_cor",
-                "tb_etapa.etapa_descricao",
-                "tb_etapa.etapa_id",
-                "tb_etapa.etapa_nome",
-                "tb_tipo_servico.nome_tipo_servico",
-                "tb_tipo_servico.descricao_tipo_servico",
-                "users.name as responsavel_nome"
-            )
+            $atividade = DB::table("tb_atividade")
+                ->select(
+                    "tb_atividade.atividade_id",
+                    "tb_atividade.atividade_nome",
+                    "tb_atividade.created_at AS atividade_created_at",
+                    "tb_atividade.atividade_descricao",
+                    "tb_atividade.responsavel_id",
+                    "tb_atividade.etapa_id",
+                    "tb_atividade.questionario_id",
+                    "tb_atividade.finalizado_em",
+                    "tb_atividade.atividade_conclusao",
+                    "tb_atividade.atividade_endereco",
+                    "tb_atividade.atividade_tipo",
+                    "tb_sites.site_id",
+                    "tb_sites.nome_site",
+                    "tb_sites.endereco_cep",
+                    "tb_sites.endereco_cidade",
+                    "tb_sites.endereco_estado",
+                    "tb_sites.endereco_numero",
+                    "tb_sites.endereco_rua",
+                    "tb_sites.nivel_prioridade",
+                    "tb_sites.tipo_acesso",
+                    "tb_sites.tipo_chave",
+                    "tb_sites.tipo_equipamento",
+                    "tb_tipo_equipamento.nome_tipo_equipamento",
+                    "tb_etapa.etapa_cor",
+                    "tb_etapa.etapa_descricao",
+                    "tb_etapa.etapa_id",
+                    "tb_etapa.etapa_nome",
+                    "tb_tipo_servico.nome_tipo_servico",
+                    "tb_tipo_servico.descricao_tipo_servico",
+                    "users.name as responsavel_nome"
+                )
                 ->leftJoin('tb_sites', 'tb_atividade.ativo_id', '=', 'tb_sites.site_id')
                 ->leftJoin('tb_tipo_equipamento', 'tb_sites.tipo_equipamento', '=', 'tb_tipo_equipamento.id_tipo_equipamento')
                 ->leftJoin('tb_etapa', 'tb_atividade.etapa_id', '=', 'tb_etapa.etapa_id')
@@ -142,11 +142,14 @@ class AtividadeController extends Controller
                 ->first();
 
             if ($atividade) {
+
                 return response()->json(['atividade' => $atividade], 200);
             } else {
+
                 return response()->json(['error' => 'Atividade não encontrada'], 404);
             }
         } catch (\Exception $e) {
+
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
