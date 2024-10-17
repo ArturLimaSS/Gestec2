@@ -24,7 +24,7 @@ class TipoAcessoController extends Controller
             $tipo_acesso->empresa_id =  $this->empresa->empresa_id;
 
             $tipo_acesso->save();
-            return response()->json(['mensagem' => 'Tipo de Acesso criado com sucesso!'], 201);
+            return response()->json(['mensagem' => 'Tipo de Acesso criado com sucesso!', "tipo_acesso" => $tipo_acesso], 201);
         } catch (\Exception $e) {
             return response()->json(['mensagem' => $e->getMessage()], 500);
         }
@@ -32,18 +32,18 @@ class TipoAcessoController extends Controller
 
     public  function listar()
     {
-        $query = TipoAcessoModel::where('empresa_id', '=', $this->empresa->empresa_id)
-            ->orWhere("empresa_id", "=", "null")
+        $query = TipoAcessoModel::whereIn('empresa_id',  [$this->empresa->empresa_id, '0'])
             ->where('ativo', '=', '1');
 
+
         $list_tipo_acesso = $query->get();
-        return response()->json(['tipos_acesso' => $list_tipo_acesso], 200);
+        return response()->json(['lista_tipo_acesso' => $list_tipo_acesso], 200);
     }
 
     public function editar(Request $request)
     {
         try {
-            $tipo_acesso = TipoAcessoModel::find($request->id);
+            $tipo_acesso = TipoAcessoModel::find($request->tipo_acesso_id);
 
             if (!$tipo_acesso) {
                 return response()->json(['mensagem' => 'Tipo de Acesso não encontrado'], 404);
@@ -59,7 +59,7 @@ class TipoAcessoController extends Controller
             $tipo_acesso->tipo_acesso_descricao = $request->tipo_acesso_descricao;
 
             $tipo_acesso->save();
-            return response()->json(['mensagem' => 'Tipo de Acesso editado com sucesso!'], 200);
+            return response()->json(['mensagem' => 'Tipo de Acesso editado com sucesso!', "tipo_acesso" => $tipo_acesso], 200);
         } catch (\Exception $e) {
             return response()->json(['mensagem' => $e->getMessage()], 500);
         }
@@ -68,13 +68,14 @@ class TipoAcessoController extends Controller
     public function excluir(Request $request)
     {
         try {
-            $tipo_acesso = TipoAcessoModel::find($request->id);
+            $tipo_acesso = TipoAcessoModel::find($request->tipo_acesso_id);
 
             if (!$tipo_acesso) {
                 return response()->json(['mensagem' => 'Tipo de Acesso não encontrado'], 404);
             }
 
             $tipo_acesso->ativo = '0';
+            $tipo_acesso->save();
             return response()->json(['mensagem' => 'Tipo de Acesso excluído com sucesso!'], 200);
         } catch (\Exception $e) {
             return response()->json(['mensagem' => $e->getMessage()], 500);

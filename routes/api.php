@@ -44,19 +44,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'site'], function () {
         Route::post('/cadastro', [SiteController::class, 'cadastrar']);
         Route::get('/listar', [SiteController::class, 'listar']);
+        Route::put('/excluir', [SiteController::class, 'excluir']);
+        Route::put('/atualizar', [SiteController::class, 'atualizar']);
+        Route::get('/buscar', [SiteController::class, 'buscar']);
 
         Route::group(['prefix' => 'tipo-acesso'], function () {
             Route::get('/listar', [TipoAcessoController::class, 'listar']);
             Route::put('/editar', [TipoAcessoController::class, 'editar']);
             Route::post('/cadastro', [TipoAcessoController::class, 'cadastrar']);
-            Route::put('/excluir', [TipoAcessoController::class, 'delete']);
+            Route::put('/excluir', [TipoAcessoController::class, 'excluir']);
         });
 
         Route::group(['prefix' => 'tipo-chave'], function () {
             Route::get('/listar', [TipoChaveController::class, 'listar']);
             Route::put('/editar', [TipoChaveController::class, 'editar']);
             Route::post('/cadastro', [TipoChaveController::class, 'cadastrar']);
-            Route::put('/excluir', [TipoChaveController::class, 'delete']);
+            Route::put('/excluir', [TipoChaveController::class, 'excluir']);
         });
     });
 
