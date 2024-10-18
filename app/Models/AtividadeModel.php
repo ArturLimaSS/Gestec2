@@ -22,8 +22,9 @@ class AtividadeModel extends Model
         'tipo_atividade',
         'empresa_id',
         'responsavel_id',
+        'previsao',
         'finalizado_em',
         'etapa_id',
-        'status',
+        'ativo',
     ];
 }

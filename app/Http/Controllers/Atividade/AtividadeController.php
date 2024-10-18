@@ -19,7 +19,7 @@ class AtividadeController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            $data['empresa_id'] =  $this->user->empresa[0]->empresa_id;
+            $data['empresa_id'] =  $this->empresa->empresa_id;
 
             $atividade  = AtividadeModel::create($data);
 
@@ -53,6 +53,7 @@ class AtividadeController extends Controller
                     "tb_atividade.atividade_descricao",
                     "tb_atividade.responsavel_id",
                     "tb_atividade.etapa_id",
+                    "tb_atividade.previsao",
                     "tb_atividade.finalizado_em",
                     "tb_atividade.atividade_conclusao",
                     "tb_atividade.atividade_tipo",
@@ -81,7 +82,8 @@ class AtividadeController extends Controller
                 ->leftJoin('tb_etapa', 'tb_atividade.etapa_id', '=', 'tb_etapa.etapa_id')
                 ->leftJoin('users', 'tb_atividade.responsavel_id', '=', 'users.id')
                 ->leftJoin('tb_tipo_servico', 'tb_atividade.tipo_servico_id', '=', 'tb_tipo_servico.tipo_servico_id')
-                ->where('tb_atividade.empresa_id', $this->user->empresa[0]->empresa_id);
+                ->where('tb_atividade.empresa_id', $this->empresa->empresa_id)
+                ->where("tb_atividade.ativo", "=", "1");
 
             if ($this->user->empresaUser[0]->cargo_id  == 4) {
                 $query->where('tb_atividade.responsavel_id', $this->user->id);
@@ -110,6 +112,7 @@ class AtividadeController extends Controller
                     "tb_atividade.questionario_id",
                     "tb_atividade.finalizado_em",
                     "tb_atividade.atividade_conclusao",
+                    "tb_atividade.previsao",
                     "tb_atividade.atividade_endereco",
                     "tb_atividade.atividade_tipo",
                     "tb_sites.site_id",
@@ -137,8 +140,9 @@ class AtividadeController extends Controller
                 ->leftJoin('tb_etapa', 'tb_atividade.etapa_id', '=', 'tb_etapa.etapa_id')
                 ->leftJoin('users', 'tb_atividade.responsavel_id', '=', 'users.id')
                 ->leftJoin('tb_tipo_servico', 'tb_atividade.tipo_servico_id', '=', 'tb_tipo_servico.tipo_servico_id')
-                ->where('tb_atividade.empresa_id', $this->user->empresa[0]->empresa_id)
+                ->where('tb_atividade.empresa_id', $this->empresa->empresa_id)
                 ->where('tb_atividade.atividade_id', $request->atividade_id)
+                ->where("tb_atividade.ativo", "=", "1")
                 ->first();
 
             if ($atividade) {
