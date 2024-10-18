@@ -17,8 +17,20 @@ class Controller extends BaseController
 
     public function  __construct()
     {
-        $this->user = auth()->check() ? User::with(['empresa', 'empresaUser'])->find(auth()->user()->id) : null;
-        $this->empresa = $this->user ? $this->user->empresa[0] : null;
+        $this->middleware(function ($request, $next) {
+            if (auth()->check()) {
+                $this->user = auth()->user();
+                $this->empresa = $this->user ? $this->user->empresa[0] : null;
+
+                return $next($request);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        });
+
+
+        // $this->user = auth()->check() ? User::with(['empresa', 'empresaUser'])->find(auth()->user()->id) : null;
+        // $this->empresa = $this->user ? $this->user->empresa[0] : null;
     }
 
     public function setUser($user)
@@ -26,7 +38,6 @@ class Controller extends BaseController
         if ($this->user == null) {
             $this->user = User::with(['empresa', 'empresaUser'])->find($user->id);
             $this->empresa = $this->user ? $this->user->empresa[0] : null;
-            http: //localhost:5173/atividades/detalhes/8
         }
     }
 
