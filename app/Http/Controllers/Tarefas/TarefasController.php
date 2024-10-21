@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TarefasController extends Controller
 {
-    public function  list(Request $request)
+    public function listar(Request $request)
     {
         try {
             $tarefas = TarefasModel::where('questionario_id',  $request->questionario_id)->get();

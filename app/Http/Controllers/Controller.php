@@ -18,14 +18,11 @@ class Controller extends BaseController
     public function  __construct()
     {
         $this->middleware(function ($request, $next) {
-            if (auth()->check()) {
-                $this->user = auth()->user();
-                $this->empresa = $this->user ? $this->user->empresa[0] : null;
 
-                return $next($request);
-            } else {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
+            $this->user = auth()->user();
+            $this->empresa = $this->user ? $this->user->empresa[0] : null;
+
+            return $next($request);
         });
 
 

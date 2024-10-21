@@ -85,10 +85,10 @@ class AtividadeController extends Controller
                 ->where('tb_atividade.empresa_id', $this->empresa->empresa_id)
                 ->where("tb_atividade.ativo", "=", "1");
 
-            if ($this->user->empresaUser[0]->cargo_id  == 4) {
-                $query->where('tb_atividade.responsavel_id', $this->user->id);
-                // $query->where('tb_atividade.etapa_id', '2');
-            }
+            // if ($this->user->empresaUser[0]->cargo_id  == 4) {
+            //     $query->where('tb_atividade.responsavel_id', $this->user->id);
+            //     // $query->where('tb_atividade.etapa_id', '2');
+            // }
             $atividades  = $query->get();
 
             return response()->json(['atividades' =>  $atividades], 200);
@@ -172,6 +172,24 @@ class AtividadeController extends Controller
             $atividade->atividade_conclusao = $request->atividade_conclusao;
             $atividade->save();
             return response()->json(['message' => 'Atividade Concluída com sucesso!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function atualizar(Request $request) {}
+
+    public function excluir(Request $request)
+    {
+        try {
+            $atividade = AtividadeModel::where('atividade_id', '=', $request->atividade_id)->first();
+            if (!$atividade) {
+                return response()->json(['error' => 'Atividade não encontrada'], 404);
+            }
+
+            $atividade->ativo = '0';
+            $atividade->save();
+            return response()->json(['message' => 'Atividade excluída com sucesso!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
